@@ -1,0 +1,17 @@
+.section--md {
+	& .container {
+		max-width: var(--bs-breakpoint-md);
+	}
+}
+
+.section--lg {
+	& .container {
+		max-width: var(--bs-breakpoint-lg);
+	}
+}
+
+.section--xl {
+	& .container {
+		max-width: var(--bs-breakpoint-xl);
+	}
+}

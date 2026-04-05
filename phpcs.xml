@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<ruleset name="WP Theme Base Coding Standards">
+	<description>PHP_CodeSniffer ruleset for WP Theme Base</description>
+
+	<!-- What to scan -->
+	<file>.</file>
+
+	<!-- Exclude patterns -->
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/assets/*</exclude-pattern>
+	<exclude-pattern>*/static-assets/*</exclude-pattern>
+	<exclude-pattern>*/acf-json/*</exclude-pattern>
+	<exclude-pattern>*/src/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+	<exclude-pattern>*.min.css</exclude-pattern>
+
+	<!-- How to scan -->
+	<arg value="sp"/> <!-- Show sniff and progress -->
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+
+	<!-- Rules: Check PHP version compatibility -->
+	<config name="testVersion" value="8.0-"/>
+
+	<!-- Rules: WordPress Coding Standards -->
+	<rule ref="WordPress-Core">
+		<!-- Allow short array syntax -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+
+		<!-- Allow alternative control structure syntax (required by CLAUDE-THEME.md) -->
+		<exclude name="Squiz.ControlStructures.ControlSignature"/>
+
+		<!-- Allow multiple assignments in one line for compact variable declarations -->
+		<exclude name="Squiz.PHP.DisallowMultipleAssignments"/>
+	</rule>
+
+	<rule ref="WordPress-Docs">
+		<!-- Require proper PHPDoc blocks -->
+		<exclude name="Squiz.Commenting.FileComment.Missing"/>
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+	</rule>
+
+	<rule ref="WordPress-Extra">
+		<!-- Exclude rules that conflict with our standards -->
+		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+
+		<!-- Disable array alignment - we don't enforce it -->
+		<exclude name="WordPress.Arrays.MultipleStatementAlignment"/>
+	</rule>
+
+	<!-- Enforce text domain -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="codetot"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Verify that everything in the global namespace is prefixed -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="codetot"/>
+			</property>
+		</properties>
+		<!-- Exclude short prefix warning -->
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
+	</rule>
+
+	<!-- Allow non-prefixed variables in template files -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound">
+		<exclude-pattern>*/templates/*</exclude-pattern>
+	</rule>
+
+	<!-- Enforce proper variable naming in templates -->
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<properties>
+			<property name="allowed_custom_properties" type="array">
+				<!-- Allow common template variables -->
+				<element value="data"/>
+				<element value="args"/>
+				<element value="item"/>
+				<element value="items"/>
+				<element value="_class"/>
+				<element value="_image_class"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Enforce proper escaping -->
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array">
+				<element value="codetot_get_svg_icon"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Check for proper nonce verification -->
+	<rule ref="WordPress.Security.NonceVerification"/>
+
+	<!-- Check for proper sanitization -->
+	<rule ref="WordPress.Security.ValidatedSanitizedInput"/>
+
+	<!-- Enforce proper use of wp_enqueue_* functions -->
+	<rule ref="WordPress.WP.EnqueuedResourceParameters"/>
+
+	<!-- Disallow direct database queries (use WP functions) -->
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
+		<type>warning</type>
+	</rule>
+
+	<!-- Encourage use of wp_safe_redirect() -->
+	<rule ref="WordPress.Security.SafeRedirect"/>
+
+	<!-- Check for correct usage of DateTime functions -->
+	<rule ref="WordPress.DateTime.RestrictedFunctions"/>
+
+	<!-- Verify that placeholders in prepared statements match arguments -->
+	<rule ref="WordPress.DB.PreparedSQLPlaceholders"/>
+
+	<!-- Enforce proper array syntax (short array syntax) -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+	<!-- Enforce proper indentation (tabs) -->
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="indent" value="4"/>
+			<property name="tabIndent" value="true"/>
+		</properties>
+	</rule>
+
+	<!-- Enforce proper file endings -->
+	<rule ref="Generic.Files.EndFileNewline"/>
+	<rule ref="Generic.Files.LineEndings">
+		<properties>
+			<property name="eolChar" value="\n"/>
+		</properties>
+	</rule>
+
+	<!-- Disallow multiple statements on same line -->
+	<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+
+	<!-- Enforce space after cast -->
+	<rule ref="Generic.Formatting.SpaceAfterCast"/>
+
+	<!-- Enforce proper function call signature -->
+	<rule ref="PEAR.Functions.FunctionCallSignature">
+		<properties>
+			<property name="allowMultipleArguments" value="true"/>
+		</properties>
+		<!-- Exclude strict spacing rules that conflict with our style -->
+		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket"/>
+		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket"/>
+	</rule>
+
+	<!-- Disable strict alignment rules -->
+	<rule ref="Generic.Formatting.MultipleStatementAlignment">
+		<severity>0</severity>
+	</rule>
+
+	<!-- Allow inline comments without full stops -->
+	<rule ref="Squiz.Commenting.InlineComment">
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+	</rule>
+
+	<!-- Check for deprecated WordPress functions -->
+	<rule ref="WordPress.WP.DeprecatedFunctions"/>
+
+	<!-- Check for deprecated WordPress parameters -->
+	<rule ref="WordPress.WP.DeprecatedParameters"/>
+
+	<!-- Check for deprecated WordPress classes -->
+	<rule ref="WordPress.WP.DeprecatedClasses"/>
+
+	<!-- Disallow short PHP open tags -->
+	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
+
+	<!-- Require proper PHPDoc for functions -->
+	<rule ref="Squiz.Commenting.FunctionComment">
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+	</rule>
+
+	<!-- Custom rules for template files -->
+	<rule ref="WordPress.Security.EscapeOutput">
+		<!-- Template files must escape output -->
+		<include-pattern>*/templates/*</include-pattern>
+	</rule>
+
+	<!-- Additional security checks -->
+	<rule ref="WordPress.Security.PluginMenuSlug"/>
+	<rule ref="WordPress.Security.NonceVerification"/>
+
+	<!-- Code quality -->
+	<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+	<rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+	<rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+
+</ruleset>

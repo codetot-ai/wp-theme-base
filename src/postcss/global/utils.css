@@ -1,0 +1,38 @@
+.left-0 {
+	left: 0;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.ratio-9x16 {
+	&::after {
+		content: '';
+		display: block;
+		padding-top: calc(16 / 9 * 100%);
+	}
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.ms-025 {
+	margin-left: 0.25em;
+}
+
+.me-025 {
+	margin-right: 0.25em;
+}
+
+.mb-05 {
+	margin-bottom: 0.5em;
+}
+
+.section--fullwidth {
+	& .container {
+		max-width: 100%;
+		padding: 0;
+	}
+}

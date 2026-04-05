@@ -1,0 +1,20 @@
+:root {
+    --primary: #0d6efd;
+    --primary-darker: #0a58ca;
+    --primary-lighter: #3d8bfd;
+    --secondary: #6c757d;
+    --secondary-darker: #565e64;
+    --secondary-lighter: #868e96;
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+@custom-media --max-mobile (max-width: 575px);
+@custom-media --s (min-width: 480px);
+@custom-media --sm (min-width: 600px);
+@custom-media --md (min-width: 782px);
+@custom-media --lg (min-width: 960px);
+@custom-media --xl (min-width: 1080px);
+@custom-media --xxl (min-width: 1280px);
+@custom-media --xxxl (min-width: 1440px);
+@custom-media --max-sm (max-width: 781px);

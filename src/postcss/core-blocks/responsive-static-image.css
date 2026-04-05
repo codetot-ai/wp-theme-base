@@ -1,0 +1,18 @@
+.responsive-static-image--cover {
+	& img {
+		object-fit: cover;
+	}
+}
+
+.responsive-static-image--contain {
+	& img {
+		object-fit: contain;
+	}
+}
+
+.responsive-static-image--default {
+	& img {
+		max-width: 100%;
+		height: auto;
+	}
+}

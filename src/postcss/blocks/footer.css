@@ -1,0 +1,56 @@
+.footer__contact-link {
+	transition: color 0.3s ease;
+
+	& .text {
+		padding-left: 0.5em;
+	}
+
+	&:hover {
+		color: var(--bs-secondary);
+	}
+}
+
+.footer__menu {
+	& a {
+		position: relative;
+		display: block;
+		padding: 0.15em 0;
+		color: var(--bs-dark);
+		font-size: 2rem;
+		text-decoration: none;
+		transition: all 0.3s ease;
+
+		@media (--md) {
+			padding: 0.15em 0 0.15em 15px;
+		}
+
+		&::before {
+			content: none;
+			position: absolute;
+			width: 8px;
+			height: 8px;
+			top: calc(50% - 4px);
+			left: 0;
+			background: var(--bs-secondary);
+			border-radius: 50%;
+			transform: translateX(-12px);
+			transition: all 0.3s ease;
+			opacity: 0;
+
+			@media (--md) {
+				content: '';
+			}
+		}
+
+		&:hover {
+			@media (--md) {
+				color: var(--bs-secondary);
+
+				&::before {
+					transform: translateX(0);
+					opacity: 1;
+				}
+			}
+		}
+	}
+}

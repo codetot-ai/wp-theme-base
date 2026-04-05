@@ -1,0 +1,37 @@
+.header__nav-button {
+	width: 36px;
+	height: 36px;
+}
+
+.header__nav-menu {
+	& li {
+		margin-right: 2em;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		& a {
+			display: block;
+			padding: 1.5em 0;
+			color: var(--bs-black);
+			text-decoration: none;
+
+			&:hover {
+				color: var(--bs-primary);
+			}
+		}
+	}
+}
+
+.header--light {
+	& .header__nav-menu {
+		& a {
+			color: var(--bs-gray-500);
+
+			&:hover {
+				color: var(--bs-white);
+			}
+		}
+	}
+}

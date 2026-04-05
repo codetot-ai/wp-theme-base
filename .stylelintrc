@@ -1,0 +1,10 @@
+{
+	"plugins": ["stylelint-prettier"],
+	"ignoreFiles": [
+		"**/vendor/**",
+		"**/node_modules/**"
+	],
+	"rules": {
+		"prettier/prettier": true
+	}
+}

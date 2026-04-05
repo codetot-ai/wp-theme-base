@@ -1,0 +1,53 @@
+$enable-dark-mode: false;
+$enable-important-utilities: false;
+$enable-cssgrid: false;
+
+// Brand colors — override these in your project
+$primary: #0d6efd;
+$secondary: #6c757d;
+$light: #f8f9fa;
+
+$black: #000;
+$dark: #212529;
+$link-color: $dark;
+$link-hover-color: darken($link-color, 15%);
+
+$box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
+$box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
+
+$btn-font-size-sm: 12px;
+$btn-border-radius: 0.375rem;
+$btn-padding-x: 1rem;
+$btn-padding-y: 0.5rem;
+
+$headings-margin-bottom: 0.75rem;
+$headings-line-height: 1.4;
+$headings-font-weight: 700;
+
+$grid-gutter-x: 1.5rem;
+$grid-gutter-y: 1rem;
+
+$spacer: 1rem;
+$spacers: (
+	0: 0,
+	1: $spacer * 0.25,
+	2: $spacer * 0.5,
+	3: $spacer,
+	4: $spacer * 1.5,
+	5: $spacer * 3,
+);
+
+$font-size-base: 1rem;
+
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+
+// Typography — override with your project font
+$font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$headings-font-family: $font-family-base;
