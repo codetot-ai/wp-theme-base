@@ -53,13 +53,17 @@ fi
 echo ""
 echo "Replacing in PHP files..."
 
-# PHP files: namespace (full first, then standalone), function prefix, text domain, package tag
+# Derive uppercase constant prefix from slug
+THEME_UPPER=$(echo "$THEME_SLUG" | tr '[:lower:]' '[:upper:]')
+
+# PHP files: namespace (full first, then standalone), function prefix, text domain, package tag, constants
 find . -name "*.php" \
     -not -path "*/vendor/*" \
     -not -path "*/node_modules/*" \
     -print0 | xargs -0 perl -pi -e "
     s/Codetot\\\\Theme/${THEME_NAMESPACE}\\\\Theme/g;
     s/\\bCodetot\\b/${THEME_NAMESPACE}/g;
+    s/\\bCODETOT_/${THEME_UPPER}_/g;
     s/\\bcodetot_/${THEME_SLUG}_/g;
     s/'codetot'/'${THEME_SLUG}'/g;
     s/\"codetot\"/\"${THEME_SLUG}\"/g;
@@ -99,10 +103,10 @@ perl -pi -e "
     s/\"name\": \"CODE TOT\"/\"name\": \"${AUTHOR_NAME}\"/;
 " composer.json
 
-echo "Replacing in webpack.config.js..."
-perl -pi -e "
-    s|http://localhost:10086/|${DEV_URL}/|;
-" webpack.config.js
+echo "Replacing in vite/webpack config..."
+if [ -f webpack.config.js ]; then
+    perl -pi -e "s|http://localhost:10086/|${DEV_URL}/|;" webpack.config.js
+fi
 
 # Replace asset handle prefixes in class-theme-init.php (already done by PHP replacement above)
 # But also handle the CSS/JS handle names like 'codetot-bootstrap', 'codetot-frontend'
