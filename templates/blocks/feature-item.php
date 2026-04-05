@@ -7,21 +7,23 @@
  * @since 0.0.1
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'svg_icon' => '',
-	'title' => '',
-	'description' => '',
-	'button_type' => 'outline-primary',
-	'button_text' => '',
-	'button_url' => '',
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'svg_icon' => '',
+		'title' => '',
+		'description' => '',
+		'button_type' => 'outline-primary',
+		'button_text' => '',
+		'button_url' => '',
+	]
+);
 
 $_class = 'shadow-lg p-2 rounded-4 d-flex flex-column feature-item';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
 $_title_class = 'feature-item__title';
-$_title_class .= !empty( $data['title_class'] ) ? ' ' . esc_attr( $data['title_class'] ) : ' h4';
+$_title_class .= ! empty( $data['title_class'] ) ? ' ' . esc_attr( $data['title_class'] ) : ' h4';
 
 ?>
 
@@ -42,12 +44,16 @@ $_title_class .= !empty( $data['title_class'] ) ? ' ' . esc_attr( $data['title_c
 		<?php endif; ?>
 		<?php if ( ! empty( $data['button_text'] ) && ! empty( $data['button_url'] ) ) : ?>
 			<div class="mt-auto pt-2 feature-item__footer">
-				<?php get_template_part('templates/core-blocks/button', null, [
-					'class' => 'w-100 feature-item__button',
-					'type' => $data['button_type'],
-					'button_text' => $data['button_text'],
-					'button_url' => $data['button_url'],
-				]); ?>
+				<?php
+				get_template_part(
+					'templates/core-blocks/button', null, [
+						'class' => 'w-100 feature-item__button',
+						'type' => $data['button_type'],
+						'button_text' => $data['button_text'],
+						'button_url' => $data['button_url'],
+					]
+				);
+				?>
 			</div>
 		<?php endif; ?>
 	</div>

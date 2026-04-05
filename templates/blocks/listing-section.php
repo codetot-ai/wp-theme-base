@@ -7,24 +7,25 @@
  * @since 1.0.0
  */
 
-
-$data = wp_parse_args($args, [
-	'class' => '',
-	'title' => '',
-	'description' => '',
-	'items' => []
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'title' => '',
+		'description' => '',
+		'items' => [],
+	]
+);
 
 $_class = 'py-2 py-lg-4 section--lg listing-section';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
-if ( !empty( $data['items'] ) ) :
-?>
+if ( ! empty( $data['items'] ) ) :
+	?>
 	<div class="<?php echo esc_attr($_class); ?>" data-block="listing-section">
 		<div class="container">
 			<div class="mb-2 listing-section__header">
 				<h2 class="h2 m-0 listing-section__title"><?php echo esc_html($data['title']); ?></h2>
-				<?php if ( !empty( $data['description'] ) ) : ?>
+				<?php if ( ! empty( $data['description'] ) ) : ?>
 					<div class="h6 mt-2 fw-normal listing-section__description">
 						<?php echo wp_kses_post( wpautop( $data['description'] ) ); ?>
 					</div>
@@ -45,4 +46,5 @@ if ( !empty( $data['items'] ) ) :
 			</div>
 		</div>
 	</div>
-<?php endif;
+	<?php
+endif;

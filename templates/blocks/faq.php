@@ -4,40 +4,42 @@
  *
  * @package codetot
  * @author codetot
- *
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'title' => '',
-	'items' => [],
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'title' => '',
+		'items' => [],
+	]
+);
 
 $_class = 'py-3 py-lg-5 bg-light section--lg faq';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
-if ( !empty( $data['items'] ) ) :
+if ( ! empty( $data['items'] ) ) :
 
-// Generate schema.org FAQ structured data
-$schema_faq = [
-	"@context" => "https://schema.org",
-	"@type" => "FAQPage",
-	"mainEntity" => []
-];
+	// Generate schema.org FAQ structured data
+	$schema_faq = [
+		'@context' => 'https://schema.org',
+		'@type' => 'FAQPage',
+		'mainEntity' => [],
+	];
 
-?>
+	?>
 	<div class="<?php echo esc_attr($_class); ?>" data-block="faq">
 		<div class="container">
 			<h2 class="h2 faq__title"><?php echo esc_html( $data['title'] ); ?></h2>
 			<div class="faq__main">
-				<?php foreach ( $data['items'] as $index => $item ) :
+				<?php
+				foreach ( $data['items'] as $index => $item ) :
 					$schema_faq['mainEntity'][] = [
-						"@type" => "Question",
-						"name" => $item['title'],
-						"acceptedAnswer" => [
-							"@type" => "Answer",
-							"text" => wp_kses_post( wpautop( $item['description'] ) )
-						]
+						'@type' => 'Question',
+						'name' => $item['title'],
+						'acceptedAnswer' => [
+							'@type' => 'Answer',
+							'text' => wp_kses_post( wpautop( $item['description'] ) ),
+						],
 					];
 
 					?>
@@ -59,4 +61,5 @@ $schema_faq = [
 <script type="application/ld+json">
 	<?php echo wp_json_encode( $schema_faq ); ?>
 </script>
-<?php endif;
+	<?php
+endif;

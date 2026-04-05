@@ -7,11 +7,13 @@
  * @since 0.0.1
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'post_id' => get_the_ID(),
-	'content_class' => 'col-lg-8 mx-auto',
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'post_id' => get_the_ID(),
+		'content_class' => 'col-lg-8 mx-auto',
+	]
+);
 
 $_class = 'content-area';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
@@ -24,6 +26,7 @@ $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 				<?php
 				// content
 				$content = get_post_field( 'post_content', $data['post_id'] );
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				echo apply_filters( 'the_content', $content );
 				?>
 			</div>

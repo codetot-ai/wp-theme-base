@@ -7,40 +7,42 @@
  * @since 0.0.1
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'title' => '',
-	'table_header' => '',
-	'table_rows' => []
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'title' => '',
+		'table_header' => '',
+		'table_rows' => [],
+	]
+);
 
 $_class = 'py-2 py-lg-4 section--xl pricing-table';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
-if ( !empty( $data['table_header'] ) && !empty( $data['table_rows'] ) ) :
+if ( ! empty( $data['table_header'] ) && ! empty( $data['table_rows'] ) ) :
 
-$header_lines = array_map('trim', explode("\n", $data['table_header']));
+	$header_lines = array_map('trim', explode("\n", $data['table_header']));
 
-// Parse header lines: each line is "PlanName|Price|OptionalBadge"
-$headers = [];
-foreach ( $header_lines as $line ) {
-	$parts = array_map('trim', explode('|', $line));
-	$headers[] = [
-		'name'    => $parts[0] ?? '',
-		'price'   => $parts[1] ?? '',
-		'badge'   => $parts[2] ?? '',
-	];
-}
-
-// Detect which columns are "popular" (have a badge like "Pho bien nhat" or "Pho bien")
-$popular_indices = [];
-foreach ( $headers as $i => $header ) {
-	if ( ! empty( $header['badge'] ) ) {
-		$popular_indices[] = $i;
+	// Parse header lines: each line is "PlanName|Price|OptionalBadge"
+	$headers = [];
+	foreach ( $header_lines as $line ) {
+		$parts = array_map('trim', explode('|', $line));
+		$headers[] = [
+			'name'    => $parts[0] ?? '',
+			'price'   => $parts[1] ?? '',
+			'badge'   => $parts[2] ?? '',
+		];
 	}
-}
 
-?>
+	// Detect which columns are "popular" (have a badge like "Pho bien nhat" or "Pho bien")
+	$popular_indices = [];
+	foreach ( $headers as $i => $header ) {
+		if ( ! empty( $header['badge'] ) ) {
+			$popular_indices[] = $i;
+		}
+	}
+
+	?>
 	<div class="<?php echo esc_attr($_class); ?>" data-block="pricing-table">
 		<div class="container">
 			<?php if ( ! empty( $data['title'] ) ) : ?>
@@ -52,8 +54,9 @@ foreach ( $headers as $i => $header ) {
 				<table class="table pricing-table__table">
 					<thead>
 						<tr>
-							<?php foreach ( $headers as $col_index => $header ) :
-								$is_label = ( $col_index === 0 );
+							<?php
+							foreach ( $headers as $col_index => $header ) :
+								$is_label = ( 0 === $col_index );
 								$is_popular = in_array( $col_index, $popular_indices, true );
 								$th_class = 'p-1 align-middle pricing-table__th';
 								$th_class .= $is_label ? ' pricing-table__th--label text-start' : ' text-center';
@@ -76,24 +79,31 @@ foreach ( $headers as $i => $header ) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ( $data['table_rows'] as $row ) :
-							if ( empty( $row['table_content'] ) ) continue;
+						<?php
+						foreach ( $data['table_rows'] as $row ) :
+							if ( empty( $row['table_content'] ) ) { continue;
+							}
 							$row_cells = array_map('trim', explode('|', $row['table_content']));
 							$row_url = $row['url'] ?? '';
 							?>
 							<tr>
-								<?php foreach ( $row_cells as $index => $cell ) :
-									$is_feature_label = ( $index === 0 );
+								<?php
+								foreach ( $row_cells as $index => $cell ) :
+									$is_feature_label = ( 0 === $index );
 									$td_class = 'p-1 align-middle pricing-table__td';
 									$td_class .= $is_feature_label ? ' text-start fw-medium' : ' text-center';
 									$td_class .= in_array( $index, $popular_indices, true ) ? ' is-popular' : '';
 									?>
 									<td class="<?php echo esc_attr( $td_class ); ?>">
 										<?php
-										if ( $cell === 'Có' || $cell === 'Co' ) :
-											?><span class="pricing-table__check" aria-label="<?php esc_attr_e( 'Có', 'codetot' ); ?>">&#10003;</span><?php
-										elseif ( $cell === '—' || $cell === '-' ) :
-											?><span class="pricing-table__dash" aria-label="<?php esc_attr_e( 'Không', 'codetot' ); ?>">&mdash;</span><?php
+										if ( 'Yes' === $cell || 'yes' === $cell ) :
+											?>
+											<span class="pricing-table__check" aria-label="<?php esc_attr_e( 'Yes', 'codetot' ); ?>">&#10003;</span>
+											<?php
+										elseif ( '—' === $cell || '-' === $cell ) :
+											?>
+											<span class="pricing-table__dash" aria-label="<?php esc_attr_e( 'No', 'codetot' ); ?>">&mdash;</span>
+											<?php
 										else :
 											echo esc_html( $cell );
 										endif;
@@ -103,7 +113,7 @@ foreach ( $headers as $i => $header ) {
 								<?php if ( ! empty( $row_url ) ) : ?>
 									<td class="p-1 text-center align-middle pricing-table__td">
 										<a href="<?php echo esc_url( $row_url ); ?>" class="btn btn-sm btn-primary">
-											<?php esc_html_e( 'Xem chi tiết', 'codetot' ); ?>
+											<?php esc_html_e( 'View details', 'codetot' ); ?>
 										</a>
 									</td>
 								<?php endif; ?>
@@ -114,4 +124,5 @@ foreach ( $headers as $i => $header ) {
 			</div>
 		</div>
 	</div>
-<?php endif;
+	<?php
+endif;

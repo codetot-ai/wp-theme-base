@@ -7,22 +7,24 @@
  * @since 0.0.1
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'title' => '',
-	'description' => '',
-	'items' => []
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'title' => '',
+		'description' => '',
+		'items' => [],
+	]
+);
 
 $_class = 'py-2 py-lg-4 section--lg statistics';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
-if ( !empty( $data['items'] ) ) :
+if ( ! empty( $data['items'] ) ) :
 
-$col_count = count($data['items']);
-$col_class = $col_count <= 3 ? 'col-md-4' : 'col-md-6 col-lg-3';
+	$col_count = count($data['items']);
+	$col_class = $col_count <= 3 ? 'col-md-4' : 'col-md-6 col-lg-3';
 
-?>
+	?>
 	<div class="<?php echo esc_attr($_class); ?>" data-block="statistics">
 		<div class="container">
 			<?php if ( ! empty( $data['title'] ) || ! empty( $data['description'] ) ) : ?>
@@ -40,10 +42,11 @@ $col_class = $col_count <= 3 ? 'col-md-4' : 'col-md-6 col-lg-3';
 				</div>
 			<?php endif; ?>
 			<div class="row">
-				<?php foreach ( $data['items'] as $item_index => $item ) :
+				<?php
+				foreach ( $data['items'] as $item_index => $item ) :
 						$is_last = ( $item_index === $col_count - 1 );
 						$separator_class = ! $is_last ? ' statistics__col--separator' : '';
-						?>
+					?>
 					<div class="col-6 <?php echo esc_attr($col_class . $separator_class); ?> mb-2 text-center statistics__col">
 						<div class="statistics__item">
 							<span class="d-block display-4 fw-bold statistics__value">
@@ -63,4 +66,5 @@ $col_class = $col_count <= 3 ? 'col-md-4' : 'col-md-6 col-lg-3';
 			</div>
 		</div>
 	</div>
-<?php endif;
+	<?php
+endif;

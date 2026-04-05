@@ -10,8 +10,10 @@
 /**
  * Get svg icon html
  *
- * @param string $name
- * @return string|null
+ * @param string $name Icon name.
+ * @param int    $width Icon width in pixels.
+ * @param int    $height Icon height in pixels.
+ * @return string
  */
 function codetot_get_svg_icon( $name, $width = 24, $height = 24 ) {
 	$value = '';
@@ -68,11 +70,11 @@ function codetot_get_svg_icon( $name, $width = 24, $height = 24 ) {
 
 	$value = preg_replace('/class="[^"]*"/', '', $value);
 
-	if ( $width != 24 ) {
+	if ( 24 !== $width ) {
 		$value = preg_replace('/(\s)width="[^"]*"/', 'width="' . esc_attr( $width ) . '"', $value);
 	}
 
-	if ( $height != 24 ) {
+	if ( 24 !== $height ) {
 		$value = preg_replace('/(\s)height="[^"]*"/', 'height="' . esc_attr( $height ) . '"', $value);
 	}
 

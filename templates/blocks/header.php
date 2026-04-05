@@ -33,6 +33,7 @@ $_class = 'header header--dark';
 						$image_html = preg_replace( '/decoding="async"/', '', $image_html );
 						$image_html = str_replace( '<img ', '<img loading="eager" fetchpriority="high" ', $image_html );
 
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- output from wp_get_attachment_image is safe
 						echo $image_html;
 					} else {
 						?>

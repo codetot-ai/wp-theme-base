@@ -4,21 +4,22 @@
  *
  * @package codetot
  * @author codetot
- *
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'title' => 'Khách hàng nói gì',
-	'review_count' => 46,
-	'review_rating' => '5,0',
-	'items' => [],
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'title' => 'Khách hàng nói gì',
+		'review_count' => 46,
+		'review_rating' => '5,0',
+		'items' => [],
+	]
+);
 
 $_class = 'py-2 py-lg-4 bg-light section--lg reviews-slider';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
-if ( !empty( $data['items'] ) ) : ?>
+if ( ! empty( $data['items'] ) ) : ?>
 	<div class="<?php echo esc_attr($_class); ?>" data-block="reviews-slider">
 		<div class="container">
 			<div class="text-center mb-4 reviews-slider__header">
@@ -45,15 +46,20 @@ if ( !empty( $data['items'] ) ) : ?>
 				</div>
 			</div>
 			<div class="reviews-slider__list">
-				<?php foreach( $data['items'] as $item ) :
-					get_template_part('templates/blocks/review-item', null, [
-						'name' => $item['name'],
-						'image_id' => $item['image_id'],
-						'quote' => $item['quote'],
-						'date' => $item['date'] ?? '',
-					]);
-				endforeach; ?>
+				<?php
+				foreach ( $data['items'] as $item ) :
+					get_template_part(
+						'templates/blocks/review-item', null, [
+							'name' => $item['name'],
+							'image_id' => $item['image_id'],
+							'quote' => $item['quote'],
+							'date' => $item['date'] ?? '',
+						]
+					);
+				endforeach;
+				?>
 			</div>
 		</div>
 	</div>
-<?php endif;
+	<?php
+endif;

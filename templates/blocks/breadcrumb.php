@@ -18,7 +18,7 @@ $_class = 'breadcrumb';
 $_class .= ! empty($data['class']) ? esc_attr(' ' . $data['class']) : '';
 
 if ( function_exists('rank_math_the_breadcrumbs') ) :
-?>
+	?>
 	<div class="<?php echo esc_attr($_class); ?>">
 		<div class="container">
 			<div class="row">
@@ -28,4 +28,5 @@ if ( function_exists('rank_math_the_breadcrumbs') ) :
 			</div>
 		</div>
 	</div>
-<?php endif;
+	<?php
+endif;

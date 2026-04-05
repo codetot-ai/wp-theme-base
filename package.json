@@ -15,7 +15,8 @@
     "dev": "cross-env BABEL_ENV=default NODE_ENV=development webpack",
     "build": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
     "fix": "prettier-standard --format '**/*.{php,js,jsx,css}' && stylelint '**/*.{css,scss}' --fix",
-    "test": "prettier-standard --check '**/*.{php,json,js,jsx,css}' && stylelint '**/*.{css,scss}'"
+    "test": "prettier-standard --check '**/*.{php,json,js,jsx,css}' && stylelint '**/*.{css,scss}'",
+    "test:unit": "jest"
   },
   "license": "MIT",
   "engines": {
@@ -35,6 +36,8 @@
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "eslint": "^7.32.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8.4.16",
     "postcss-extract": "^1.1.1",

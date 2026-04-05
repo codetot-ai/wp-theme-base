@@ -4,22 +4,23 @@
  *
  * @package codetot
  * @author codetot
- *
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'title' => '',
-	'description' => '',
-	'items' => []
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'title' => '',
+		'description' => '',
+		'items' => [],
+	]
+);
 
 $_class = 'py-2 py-lg-4 bg-light steps-section';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
-if ( !empty( $data['items'] ) ) :
+if ( ! empty( $data['items'] ) ) :
 
-?>
+	?>
 	<div class="<?php echo esc_attr($_class); ?>" data-block="steps-section">
 		<div class="container">
 			<?php if ( ! empty( $data['title'] ) || ! empty( $data['description'] ) ) : ?>
@@ -37,7 +38,8 @@ if ( !empty( $data['items'] ) ) :
 				</div>
 			<?php endif; ?>
 			<div class="row">
-				<?php foreach ( $data['items'] as $index => $item ) :
+				<?php
+				foreach ( $data['items'] as $index => $item ) :
 					$step_number = $index + 1;
 					?>
 					<div class="d-flex flex-column col-12 mb-2 col-md-6 col-lg-3 flex-lg-grow-1 steps-section__col">
@@ -62,4 +64,5 @@ if ( !empty( $data['items'] ) ) :
 			</div>
 		</div>
 	</div>
-<?php endif;
+	<?php
+endif;

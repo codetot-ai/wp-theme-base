@@ -7,12 +7,14 @@
  * @since 0.0.1
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'post_ids' => [],
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'post_ids' => [],
+	]
+);
 
-if ( !empty( $data['post_ids'] ) ) :
+if ( ! empty( $data['post_ids'] ) ) :
 	$_class = 'post-grid';
 	$_class .= ! empty( $data['class'] ) ? ' ' . esc_attr( $data['class'] ) : '';
 	?>
@@ -21,9 +23,11 @@ if ( !empty( $data['post_ids'] ) ) :
 		<div class="container">
 			<div class="row">
 				<?php
-				get_template_part( 'templates/blocks/post-grid-loop', null, [
-					'post_ids' => $data['post_ids'],
-				] );
+				get_template_part(
+					'templates/blocks/post-grid-loop', null, [
+						'post_ids' => $data['post_ids'],
+					]
+				);
 				?>
 			</div>
 		</div>

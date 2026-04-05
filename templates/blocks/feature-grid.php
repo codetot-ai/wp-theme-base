@@ -7,17 +7,19 @@
  * @since 0.0.1
  */
 
-$data = wp_parse_args($args, [
-	'class' => '',
-	'title' => '',
-	'items' => []
-]);
+$data = wp_parse_args(
+	$args, [
+		'class' => '',
+		'title' => '',
+		'items' => [],
+	]
+);
 
 $_class = 'feature-grid';
 $_class .= ! empty($data['class']) ? ' ' . esc_attr($data['class']) : '';
 
 $_item_count = count($data['items']);
-$_col_lg = $_item_count === 4 ? 3 : ($_item_count === 2 ? 6 : 4);
+$_col_lg = 4 === $_item_count ? 3 : ( 2 === $_item_count ? 6 : 4 );
 
 ?>
 <div class="<?php echo esc_attr($_class); ?>">
@@ -30,16 +32,20 @@ $_col_lg = $_item_count === 4 ? 3 : ($_item_count === 2 ? 6 : 4);
 		<div class="row">
 			<?php foreach ( $data['items'] as $item ) : ?>
 				<div class="d-flex col-6 col-lg-<?php echo esc_attr($_col_lg); ?> mb-2">
-					<?php get_template_part('templates/blocks/feature-item', null, [
-						'class' => 'feature-grid__item mb-4 mb-md-0',
-						'title_class' => 'h3',
-						'svg_icon' => $item['svg_icon'] ?? '',
-						'title' => $item['title'] ?? '',
-						'description' => $item['description'] ?? '',
-						'button_type' => 'outline-primary',
-						'button_text' => $item['button_text'] ?? '',
-						'button_url' => $item['button_url'] ?? '',
-					]); ?>
+					<?php
+					get_template_part(
+						'templates/blocks/feature-item', null, [
+							'class' => 'feature-grid__item mb-4 mb-md-0',
+							'title_class' => 'h3',
+							'svg_icon' => $item['svg_icon'] ?? '',
+							'title' => $item['title'] ?? '',
+							'description' => $item['description'] ?? '',
+							'button_type' => 'outline-primary',
+							'button_text' => $item['button_text'] ?? '',
+							'button_url' => $item['button_url'] ?? '',
+						]
+					);
+					?>
 				</div>
 			<?php endforeach; ?>
 		</div>

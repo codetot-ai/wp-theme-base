@@ -7,22 +7,28 @@
  * @since 0.0.1
  */
 
-$data = wp_parse_args($args, [
-	'name' => '',
-	'date' => '',
-	'image_id' => null,
-	'quote' => '',
-]);
+$data = wp_parse_args(
+	$args, [
+		'name' => '',
+		'date' => '',
+		'image_id' => null,
+		'quote' => '',
+	]
+);
 
 ?>
 <div class="review-item">
 	<div class="review-item__inner">
 		<?php if ( ! empty( $data['image_id'] ) ) : ?>
 			<div class="review-item__avatar">
-				<?php echo wp_get_attachment_image( $data['image_id'], 'thumbnail', false, [
-					'class' => 'review-item__avatar-img',
-					'loading' => 'lazy',
-				]); ?>
+				<?php
+				echo wp_get_attachment_image(
+					$data['image_id'], 'thumbnail', false, [
+						'class' => 'review-item__avatar-img',
+						'loading' => 'lazy',
+					]
+				);
+				?>
 			</div>
 		<?php endif; ?>
 		<div class="review-item__content">
