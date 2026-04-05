@@ -1,0 +1,24 @@
+/**
+ * Font Face Declarations
+ *
+ * By default uses system fonts. To self-host a custom font:
+ * 1. Download .woff2 files to assets/fonts/
+ * 2. Add @font-face declarations below
+ * 3. Update --font-sans in src/postcss/variables.css
+ * 4. Update font preload in inc/enqueue.php
+ *
+ * Example (Plus Jakarta Sans):
+ *
+ * @font-face {
+ *   font-family: 'Plus Jakarta Sans';
+ *   font-style: normal;
+ *   font-weight: 200 800;
+ *   font-display: swap;
+ *   src: url('../fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+ *   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+ *     U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+ *     U+2215, U+FEFF, U+FFFD;
+ * }
+ */
+
+/* System font stack — no @font-face needed */
