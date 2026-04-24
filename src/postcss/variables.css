@@ -5,8 +5,8 @@
     --secondary: #6c757d;
     --secondary-darker: #565e64;
     --secondary-lighter: #868e96;
-    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    --font-sans: system-ui, -apple-system, "Segoe UI", roboto, sans-serif;
+    --font-mono: ui-monospace, "SFMono-Regular", consolas, monospace;
 }
 
 @custom-media --max-mobile (max-width: 575px);

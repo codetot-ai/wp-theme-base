@@ -1,0 +1,31 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "at-rule-no-unknown": [true, {
+      "ignoreAtRules": ["custom-media", "import", "mixin", "define-mixin"]
+    }],
+    "function-no-unknown": [true, {
+      "ignoreFunctions": ["theme"]
+    }],
+    "no-descending-specificity": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "import-notation": null,
+    "media-feature-range-notation": null,
+    "nesting-selector-no-missing-scoping-root": null,
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null,
+    "color-function-alias-notation": null
+  },
+  "ignoreFiles": [
+    "assets/**",
+    "node_modules/**",
+    "vendor/**",
+    "*.min.css",
+    "src/bootstrap/**",
+    "src/scss/**"
+  ]
+}
