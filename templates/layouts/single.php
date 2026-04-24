@@ -7,29 +7,36 @@
  * @since 0.0.1
  */
 
-$post_thumbnail_id = has_post_thumbnail() ? get_post_thumbnail_id() : null;
+$_post_id = get_the_ID();
 
-if ( ! empty( $post_thumbnail_id ) ) :
-	get_template_part(
-		'templates/blocks/hero-post', null, [
-			'class' => 'bg-primary text-white mb-2 mb-lg-4',
-			'title' => get_the_title(),
-			'image' => $post_thumbnail_id,
-		]
-	);
-else :
-	get_template_part(
-		'templates/blocks/hero-title', null, [
-			'class' => 'bg-secondary text-dark mt-1 mb-2',
-			'title' => get_the_title(),
-		]
-	);
-endif;
-
+// Post header (title, meta, featured image)
 get_template_part(
-	'templates/blocks/content-area', null, [
-		'class' => 'my-4',
+	'templates/blocks/post-header', null, [
+		'class'   => 'mb-2',
+		'post_id' => $_post_id,
+	]
+);
+
+// Post content (body text)
+get_template_part(
+	'templates/blocks/post-content', null, [
+		'class'         => 'mb-2',
+		'post_id'       => $_post_id,
 		'content_class' => 'col-lg-8 mx-auto',
-		'show_sidebar' => false,
+	]
+);
+
+// Post footer (tags, author bio)
+get_template_part(
+	'templates/blocks/post-footer', null, [
+		'class'   => 'mb-2',
+		'post_id' => $_post_id,
+	]
+);
+
+// Related posts
+get_template_part(
+	'templates/blocks/related-posts', null, [
+		'post_id' => $_post_id,
 	]
 );

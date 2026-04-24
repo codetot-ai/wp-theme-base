@@ -9,20 +9,16 @@
 
 $_post_id = get_the_ID();
 
-// hero-title
 get_template_part(
-	'templates/blocks/hero-title', null, [
-		'class' => 'text-center bg-primary text-white mb-2 mb-lg-4',
-		'title' => get_the_title($_post_id),
+	'templates/blocks/breadcrumb', null, [
+		'class' => 'mb-1',
 	]
 );
 
-// main content, 8 columns
-
 get_template_part(
 	'templates/blocks/content-area', null, [
-		'class' => 'mb-2 mb-lg-4',
-		'post_id' => $_post_id,
+		'class'         => 'py-2 py-lg-4',
+		'post_id'       => $_post_id,
 		'content_class' => 'col-lg-8 mx-auto',
 	]
 );
