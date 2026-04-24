@@ -5,9 +5,10 @@ Generic WordPress starter theme with selective Bootstrap 5 SCSS, PostCSS pipelin
 ## Quick Start
 
 ```bash
-# 1. Clone the repo
+# 1. Clone the repo and remove git tracking
 git clone git@github.com:codetot-ai/wp-theme-base.git your-theme-name
 cd your-theme-name
+rm -rf .git/
 
 # 2. Run the setup script (replaces text domain, namespace, prefixes)
 bash setup.sh
