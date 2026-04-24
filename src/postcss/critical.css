@@ -1,0 +1,17 @@
+/**
+ * Critical CSS — above-the-fold styles inlined in <head>.
+ *
+ * Contains only what's needed for first paint:
+ * - CSS variables (custom properties)
+ * - Base reset (body, headings, figure)
+ * - Header/navigation
+ * - Hero sections (all variants)
+ *
+ * Built by Vite as a separate entry → assets/dist/critical.css
+ * Inlined by inc/critical-css.php at priority 1.
+ */
+
+@import url('variables.css');
+@import url('global/_reset.css');
+@import url('blocks/header.css');
+@import url('blocks/hero-title.css');

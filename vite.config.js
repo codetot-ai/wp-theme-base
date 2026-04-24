@@ -22,6 +22,7 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: resolve(__dirname, 'src/js/main.js'),
+				critical: resolve(__dirname, 'src/postcss/critical.css'),
 				font: resolve(__dirname, 'src/scss/font.scss'),
 				bootstrap: resolve(__dirname, 'src/bootstrap/bootstrap.scss'),
 			},
