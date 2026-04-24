@@ -15,9 +15,12 @@ defined( 'ABSPATH' ) || exit;
 function codetot_get_critical_css_path() {
 	$critical_dir = CODETOT_DIR . '/assets/dist/critical';
 
+	// Post types that use the single critical CSS. Filter to add custom post types.
+	$single_post_types = apply_filters( 'codetot_critical_css_single_types', [ 'post' ] );
+
 	if ( is_front_page() ) {
 		$file = $critical_dir . '/front-page.css';
-	} elseif ( is_singular( 'post' ) ) {
+	} elseif ( is_singular( $single_post_types ) ) {
 		$file = $critical_dir . '/single.css';
 	} elseif ( is_archive() || is_search() ) {
 		$file = $critical_dir . '/archive.css';
@@ -45,17 +48,20 @@ function codetot_inline_critical_css() {
 
 	echo '<style id="critical-css">' . $css . '</style>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
-add_action( 'wp_head', 'codetot_inline_critical_css', 2 );
+add_action( 'wp_head', 'codetot_inline_critical_css', 1 );
 
 /**
- * Defer the main stylesheet when critical CSS exists.
+ * Defer stylesheets when critical CSS exists.
+ * Both Bootstrap and main CSS are deferred to avoid render-blocking.
  *
  * @param string $html   The link tag HTML.
  * @param string $handle The stylesheet handle.
  * @return string Modified link tag.
  */
 function codetot_defer_main_stylesheet( $html, $handle ) {
-	if ( 'codetot-style' !== $handle || ! codetot_get_critical_css_path() ) {
+	$deferred_handles = [ 'codetot-style', 'codetot-bootstrap' ];
+
+	if ( ! in_array( $handle, $deferred_handles, true ) || ! codetot_get_critical_css_path() ) {
 		return $html;
 	}
 

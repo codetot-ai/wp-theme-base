@@ -5,10 +5,10 @@
  * CSS load order in <head>:
  * 1. Font preload (priority 0)
  * 2. Font CSS inline (priority 1)
- * 3. Bootstrap CSS inline (priority 2)
+ * 3. Critical CSS inline (priority 1) — see critical-css.php
  * 4. Variables CSS inline (priority 2)
- * 5. Critical CSS inline (priority 2) — see critical-css.php
- * 6. Main theme CSS deferred (default priority)
+ * 5. Bootstrap CSS enqueued (deferred when critical CSS exists)
+ * 6. Main theme CSS enqueued (deferred when critical CSS exists)
  *
  * @package codetot
  */
@@ -22,9 +22,9 @@ defined( 'ABSPATH' ) || exit;
  * Keep empty for system font stack.
  */
 function codetot_preload_fonts() {
-	$fonts = array(
+	$fonts = [
 		// Example: '/assets/fonts/your-font-latin.woff2',
-	);
+	];
 
 	foreach ( $fonts as $font ) {
 		printf(
@@ -56,9 +56,15 @@ function codetot_inline_font_css() {
 add_action( 'wp_head', 'codetot_inline_font_css', 1 );
 
 /**
- * Inline Bootstrap CSS in <head>.
+ * Inline Bootstrap CSS only when no critical CSS exists.
+ * When critical CSS is available, Bootstrap is enqueued and deferred instead.
  */
 function codetot_inline_bootstrap_css() {
+	// Skip inline when critical CSS will handle above-the-fold.
+	if ( codetot_get_critical_css_path() ) {
+		return;
+	}
+
 	$bootstrap_css_path = CODETOT_DIR . '/assets/dist/bootstrap.css';
 	if ( ! file_exists( $bootstrap_css_path ) ) {
 		return;
@@ -94,12 +100,25 @@ add_action( 'wp_head', 'codetot_inline_variables_css', 2 );
  * Enqueue main front-end styles and scripts.
  */
 function codetot_enqueue_assets() {
+	// Bootstrap CSS (enqueued so it can be deferred when critical CSS exists).
+	if ( codetot_get_critical_css_path() ) {
+		$bootstrap_file = CODETOT_DIR . '/assets/dist/bootstrap.css';
+		if ( file_exists( $bootstrap_file ) ) {
+			wp_enqueue_style(
+				'codetot-bootstrap',
+				CODETOT_URI . '/assets/dist/bootstrap.css',
+				[],
+				filemtime( $bootstrap_file )
+			);
+		}
+	}
+
 	// Main stylesheet (compiled by Vite).
 	$css_file = CODETOT_DIR . '/assets/dist/main.css';
 	wp_enqueue_style(
 		'codetot-style',
 		CODETOT_URI . '/assets/dist/main.css',
-		array(),
+		[],
 		file_exists( $css_file ) ? filemtime( $css_file ) : CODETOT_VERSION
 	);
 
@@ -108,7 +127,7 @@ function codetot_enqueue_assets() {
 	wp_enqueue_script(
 		'codetot-script',
 		CODETOT_URI . '/assets/dist/main.js',
-		array(),
+		[],
 		file_exists( $js_file ) ? filemtime( $js_file ) : CODETOT_VERSION,
 		true
 	);
