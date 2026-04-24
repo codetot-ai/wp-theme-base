@@ -18,7 +18,8 @@
     "nesting-selector-no-missing-scoping-root": null,
     "property-no-vendor-prefix": null,
     "value-no-vendor-prefix": null,
-    "color-function-alias-notation": null
+    "color-function-alias-notation": null,
+    "property-no-deprecated": null
   },
   "ignoreFiles": [
     "assets/**",

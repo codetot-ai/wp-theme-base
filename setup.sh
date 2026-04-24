@@ -141,7 +141,18 @@ fi
 echo ""
 echo "Replacing in PHP files..."
 
-# PHP files: namespace (full first, then standalone), function prefix, text domain, package tag, constants
+# PHP files: order matters — asset handles first, then text domain, to avoid double-replacement.
+# Step 1: Replace asset handle prefixes (e.g. 'codetot-bootstrap' → 'mytheme-bootstrap')
+# Must run BEFORE text domain replacement to avoid 'codetot-global-global-bootstrap'.
+echo "Replacing asset handles..."
+find . -name "*.php" \
+	-not -path "*/vendor/*" \
+	-not -path "*/node_modules/*" \
+	-print0 | xargs -0 perl -pi -e "
+	s/'codetot-/'${THEME_SLUG}-/g;
+"
+
+# Step 2: Replace namespace, function prefix, text domain, package tag, constants
 find . -name "*.php" \
 	-not -path "*/vendor/*" \
 	-not -path "*/node_modules/*" \
@@ -188,15 +199,6 @@ echo "Replacing dev URL..."
 if [ -f webpack.config.js ]; then
 	perl -pi -e "s|http://localhost:10086/|${DEV_URL}/|;" webpack.config.js
 fi
-
-# Replace asset handle prefixes (e.g. 'codetot-bootstrap' → 'client-theme-bootstrap')
-echo "Replacing asset handles..."
-find . -name "*.php" \
-	-not -path "*/vendor/*" \
-	-not -path "*/node_modules/*" \
-	-print0 | xargs -0 perl -pi -e "
-	s/'codetot-/'${THEME_SLUG}-/g;
-"
 
 echo ""
 echo "=== Setup complete! ==="
